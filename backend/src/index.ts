@@ -15,10 +15,10 @@ app.get('/health', (req, res) => {
 
 AppDataSource.initialize()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error('Erro ao conectar no banco:', err);
-  });
+});

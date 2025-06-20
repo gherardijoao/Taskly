@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: taskly-postgres
+    environment:
+      POSTGRES_DB: taskly
+      POSTGRES_USER: taskly_user
+      POSTGRES_PASSWORD: 14022312Jl$
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: taskly-backend
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: taskly_user
+      DB_PASS: 14022312Jl$
+      DB_NAME: taskly
+      PORT: 3000
+      JWT_SECRET: sua_jwt_secret
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data: 
